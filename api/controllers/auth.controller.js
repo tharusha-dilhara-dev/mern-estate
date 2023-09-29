@@ -12,7 +12,7 @@ export const singup= async (req,res,next)=>{
         res.status(201).json('User created successfully!');
     } catch (error) {
         // res.status(500).json(error.message);
-        next(errorhandler(500,'error is working for errorhandler function'));
-        
-    }
+        // next(errorhandler(500,'error is working for errorhandler function'));
+        next(error)
+;    }
 };
