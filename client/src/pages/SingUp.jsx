@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import OAuth from '../components/OAuth';
 
 
 function SingUp() {
@@ -56,6 +57,7 @@ function SingUp() {
         <input type="email" placeholder='email' className='p-3 border rounded-lg' id='email' onChange={handlechange} required />
         <input type="password" placeholder='password' className='p-3 border rounded-lg' id='password' onChange={handlechange} required />
         <button disabled={loading} className='p-3 text-white uppercase rounded-lg bg-slate-700 hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign up'}</button>
+        <OAuth/>
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
