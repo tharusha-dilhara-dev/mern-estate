@@ -52,9 +52,9 @@ function SingUp() {
     <div className='max-w-lg p-3 mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Sing Up</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        <input type="text" placeholder='username' className='p-3 border rounded-lg' id='username' onChange={handlechange} />
-        <input type="email" placeholder='email' className='p-3 border rounded-lg' id='email' onChange={handlechange} />
-        <input type="password" placeholder='password' className='p-3 border rounded-lg' id='password' onChange={handlechange} />
+        <input type="text" placeholder='username' className='p-3 border rounded-lg' id='username' onChange={handlechange} required />
+        <input type="email" placeholder='email' className='p-3 border rounded-lg' id='email' onChange={handlechange} required />
+        <input type="password" placeholder='password' className='p-3 border rounded-lg' id='password' onChange={handlechange} required />
         <button disabled={loading} className='p-3 text-white uppercase rounded-lg bg-slate-700 hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign up'}</button>
       </form>
       <div className='flex gap-2 mt-5'>
