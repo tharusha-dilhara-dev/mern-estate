@@ -22,6 +22,17 @@ app.use('/api',userrouter);
 app.use('/api/auth',authrouter);
 
 
+
+app.use((err,req,res,next)=>{
+    const statecode=err.statecode || 500;
+    const message=err.message || 'internal server error';
+    return res.status(statecode).json({
+        success:false,
+        statecode,
+        message
+    });
+});
+
 app.listen(3000,()=>{
     console.log("server is runnin onnport 3000 !");
 })
