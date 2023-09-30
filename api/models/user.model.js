@@ -17,7 +17,7 @@ const userSchema=new mongoose.Schema({
     },
     avatar:{
         type:String,
-        default:''
+        default:'https://img.freepik.com/premium-vector/female-user-profile-avatar-is-woman-character-screen-saver-with-emotions_505620-617.jpg'
     },
 
 },{timestamps:true});
