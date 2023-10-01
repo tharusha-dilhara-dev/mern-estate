@@ -11,7 +11,7 @@ function CreateListing() {
     const [loading, setloading] = useState(false);
     const [files, setFiles] = useState({});
     const [formData, setFormData] = useState({
-        imageUrls: [],
+        imageUrl: [],
         name: '',
         des: '',
         address: '',
@@ -32,7 +32,7 @@ function CreateListing() {
 
     const handleImageSubmit = async (e) => {
 
-        if (files.length > 0 && files.length < 7 + formData.imageUrls.length < 7) {
+        if (files.length > 0 && files.length < 7 + formData.imageUrl.length < 7) {
             setuploading(true);
             setImageUploadError(false);
             const promises = [];
@@ -41,7 +41,7 @@ function CreateListing() {
                 promises.push(storageImage(files[i]));
             }
             Promise.all(promises).then((url) => {
-                setFormData({ ...formData, imageUrls: formData.imageUrls.concat(url) });
+                setFormData({ ...formData, imageUrl: formData.imageUrl.concat(url) });
                 setImageUploadError(false);
                 setuploading(false);
             }).catch((error) => {
@@ -84,7 +84,7 @@ function CreateListing() {
     const handleRemoveImage = (index) => {
         setFormData({
             ...formData,
-            imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+            imageUrl: formData.imageUrl.filter((_, i) => i !== index),
         })
     };
 
@@ -123,7 +123,7 @@ function CreateListing() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (formData.imageUrls.length < 1) return seterror('you must upload at least one image')
+            if (formData.imageUrl.length < 1) return seterror('you must upload at least one image')
             if (+formData.regulerPrice < +formData.discountPrice) return seterror('Discount price mesu be lower than regular price')
             setloading(true);
             seterror(false);
@@ -218,7 +218,7 @@ function CreateListing() {
                     </div>
                     <p className='text-sm text-red-700'>{imageUploadError && imageUploadError}</p>
                     <div className='flex flex-col'>
-                        {formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
+                        {formData.imageUrl.length > 0 && formData.imageUrl.map((url, index) => (
                             <div key={index} className='flex items-center justify-between'>
                                 <img src={url} className='object-contain w-[300px] mt-4 rounded-lg' alt='image' />
                                 <button type='button' onClick={() => handleRemoveImage(index)} className='p-3 text-red-700 uppercase border rounded-lg hover:opacity-95 w-[300px] h-[55px] flex items-center justify-center hover:shadow-lg  border-red-800'>Delete</button>
