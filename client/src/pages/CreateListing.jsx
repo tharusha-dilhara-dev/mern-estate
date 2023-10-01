@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase'
 import { useSelector } from 'react-redux';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function CreateListing() {
     const { currentUser } = useSelector((state) => state.user);
@@ -192,7 +192,10 @@ function CreateListing() {
                             <input type="number" id="regulerPrice" min='50' max='10000' required className='p-3 border border-gray-300 rounded-lg' onChange={handlechange} value={formData.regulerPrice} />
                             <div className='flex flex-col items-center'>
                                 <p>Regular price</p>
-                                <span className='text-xs'>($ / menth)</span>
+                                <span className='text-xs'>($ / month)</span>
+                                {formData.type === 'rent' && (
+                                    <span className='text-xs'>($ / month)</span>
+                                )}
                             </div>
                         </div>
                         {formData.offer && (
@@ -200,11 +203,15 @@ function CreateListing() {
                                 <input type="number" id="discountPrice" min='0' max='10000' required className='p-3 border border-gray-300 rounded-lg' onChange={handlechange} value={formData.discountPrice} />
                                 <div className='flex flex-col items-center'>
                                     <p>discount price</p>
-                                    <span className='text-xs'>($ / menth)</span>
+                                    <span className='text-xs'>($ / month)</span>
+
+                                    {formData.type === 'rent' && (
+                                        <span className='text-xs'>($ / month)</span>
+                                    )}
                                 </div>
                             </div>
                         )}
-                        
+
                     </div>
                 </div>
                 <div className='flex flex-col flex-1 gap-4'>
