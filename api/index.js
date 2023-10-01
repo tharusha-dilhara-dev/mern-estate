@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userrouter from "./routes/user.route.js";
 import authrouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
+import listingrouter from "./routes/listing.router.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 
 app.use('/api/user',userrouter);
 app.use('/api/auth',authrouter);
+app.use('/api/listing',listingrouter);
 
 
 
