@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from '../firebase';
 import { deleteUserError, deleteUserStart, deleteUserSuccess, signInFailure, signoutUserSuccess, updateUserError, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Profile() {
   const fileRef = useRef(null);
-  const { currentUser,loading,error } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileerrors, setFileErrors] = useState(false);
   const [formdata, setFormData] = useState({});
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  const [showListingError,setShowListingError] = useState(false);
+  const [showListingError, setShowListingError] = useState(false);
   const [userListings, setUserListings] = useState([]);
 
   //firebase storage
@@ -58,24 +58,24 @@ function Profile() {
   };
 
 
-  const handleChange=(e) => {
-    setFormData({ ...formdata,[e.target.id]: e.target.value});
+  const handleChange = (e) => {
+    setFormData({ ...formdata, [e.target.id]: e.target.value });
   }
 
 
-  const handleSubmit= async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`,{
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formdata)
       });
-      const data=await res.json();
-      if(data.success == false){
+      const data = await res.json();
+      if (data.success == false) {
         dispatch(updateUserError(data.message));
         return;
       }
@@ -87,14 +87,14 @@ function Profile() {
   }
 
 
-  const handleDleteUser =async ()=>{
+  const handleDleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
       });
-      const data=await res.json();
-      if(data.success == false){
+      const data = await res.json();
+      if (data.success == false) {
         dispatch(deleteUserError(data.message));
         return;
       }
@@ -106,11 +106,11 @@ function Profile() {
   }
 
 
-  const handleSignOut=async() =>{
+  const handleSignOut = async () => {
     try {
-      const res=await fetch('/api/auth/signout');
-      const data=await res.json();
-      if(data.success == false){
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success == false) {
         dispatch(signInFailure(data.message));
         return;
       }
@@ -122,7 +122,7 @@ function Profile() {
 
 
 
-  const handleShowListing= async (e) => {
+  const handleShowListing = async (e) => {
     try {
       const res = await fetch(`/api/user/listings/${currentUser._id}`);
       const data = await res.json();
@@ -135,6 +135,26 @@ function Profile() {
       showListingError(true);
     }
   }
+
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className='max-w-lg p-3 mx-auto'>
@@ -166,8 +186,8 @@ function Profile() {
         <span onClick={handleDleteUser} className='text-red-700 cursor-pointer'>Delete account</span>
         <span className='text-red-700 cursor-pointer' onClick={handleSignOut}>Sign out</span>
       </div>
-      <p className='mt-5 text-red-700'>{error ? error : '' }</p>
-      <p className='mt-5 text-green-700'>{updateSuccess? 'User is Updated successfully!' : '' }</p>
+      <p className='mt-5 text-red-700'>{error ? error : ''}</p>
+      <p className='mt-5 text-green-700'>{updateSuccess ? 'User is Updated successfully!' : ''}</p>
       <button onClick={handleShowListing} className='w-full text-green-700'>Show Listings</button>
       <p className='mt-5 text-red-700'>{showListingError ? 'Error showing listings' : ''}</p>
       {userListings &&
@@ -194,7 +214,7 @@ function Profile() {
               </Link>
 
               <div className='flex flex-col item-center'>
-                <button className='text-red-700 uppercase'>Delete</button>
+                <button onClick={() => handleListingDelete(listing._id)}className='text-red-700 uppercase'>Delete</button>
                 <button className='text-green-700 uppercase'>Edit</button>
               </div>
             </div>
