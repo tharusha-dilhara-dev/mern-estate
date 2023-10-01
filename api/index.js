@@ -5,8 +5,13 @@ import userrouter from "./routes/user.route.js";
 import authrouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import listingrouter from "./routes/listing.router.js";
+//deploy pre installation
+import path from 'path';
 
 dotenv.config();
+
+//deploy pre installation
+const __dirname = path.resolve();
 
 mongoose.connect(process.env.MONGO)
 .then(()=>{
@@ -24,6 +29,12 @@ app.use(cookieParser());
 app.use('/api/user',userrouter);
 app.use('/api/auth',authrouter);
 app.use('/api/listing',listingrouter);
+
+//deploy pre installation
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+})
 
 
 
