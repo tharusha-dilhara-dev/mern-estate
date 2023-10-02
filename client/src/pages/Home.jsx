@@ -57,7 +57,7 @@ function Home() {
           place with ease
         </h1>
         <div className='text-xs text-gray-400 sm:text-sm'>
-          Sahand Estate is the best place to find your next perfect place to
+        Milion Estate is the best place to find your next perfect place to
           live.
           <br />
           We have a wide range of properties for you to choose from.
