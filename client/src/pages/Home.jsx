@@ -56,7 +56,7 @@ function Home() {
   return (
     <div>
       {/* top */}
-      <div className='flex flex-col max-w-6xl gap-6 px-3 mx-auto p-28'>
+      <div className='flex flex-col gap-6 px-3 mx-auto p-28 bg-gradient-to-t from-slate-200 sm:px-[200px]'>
         <h1 className='text-3xl font-bold text-slate-700 lg:text-6xl'>
           Find your next <span className='text-slate-500'>perfect</span>
           <br />
