@@ -6,6 +6,7 @@ import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/ListingItem';
+import SimpleImageSlider from "react-simple-image-slider";
 
 function Home() {
 
@@ -47,6 +48,11 @@ function Home() {
     };
     fetchOfferListings();
   }, []);
+
+
+
+  // console.log('console.log', offerListings);
+  
   return (
     <div>
       {/* top */}
@@ -57,7 +63,7 @@ function Home() {
           place with ease
         </h1>
         <div className='text-xs text-gray-400 sm:text-sm'>
-        Milion Estate is the best place to find your next perfect place to
+          Milion Estate is the best place to find your next perfect place to
           live.
           <br />
           We have a wide range of properties for you to choose from.
@@ -71,7 +77,7 @@ function Home() {
       </div>
 
       {/* swiper */}
-      <Swiper navigation>
+      {/* <Swiper navigation>
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
@@ -86,11 +92,21 @@ function Home() {
               ></div>
             </SwiperSlide>
           ))}
-      </Swiper>
+      </Swiper> */}
+
+      {/* <div className='flex items-center justify-center'>
+        <SimpleImageSlider
+          width={900}
+          height={304}
+          images={offerListings[0]}
+          showBullets={true}
+          showNavs={true}
+        />
+      </div> */}
 
       {/* listing results for offer, sale and rent */}
 
-      <div className='flex flex-col max-w-6xl gap-8 p-3 mx-auto my-10'>
+      <div className='flex flex-col max-w-6xl gap-8 p-3 mx-auto '>
         {offerListings && offerListings.length > 0 && (
           <div className=''>
             <div className='my-3'>

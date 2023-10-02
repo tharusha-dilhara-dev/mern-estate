@@ -8,6 +8,9 @@ import { useSelector } from 'react-redux';
 import Contact from '../components/Contact';
 
 
+import SimpleImageSlider from "react-simple-image-slider";
+
+
 import {
     FaBath,
     FaBed,
@@ -61,7 +64,7 @@ export default function Listing() {
             )}
             {listing && !loading && !error && (
                 <div>
-                    <Swiper navigation>
+                    {/* <Swiper navigation>
                         {listing.imageUrl.map((url) => (
                             <SwiperSlide key={url}>
                                 <div
@@ -74,7 +77,22 @@ export default function Listing() {
                                 ></div>
                             </SwiperSlide>
                         ))}
-                    </Swiper>
+                    </Swiper> */}
+                    {/* {listing.imageUrl.map((url) => (
+                        <img src={url} alt="" />
+                    ))} */}
+
+                    <div className='flex items-center justify-center'>
+                    <SimpleImageSlider 
+                        width={900}
+                        height={304}
+                        images={listing.imageUrl}
+                        showBullets={true}
+                        showNavs={true}
+                    />
+                    </div>
+
+                    
                     <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
                         <FaShare
                             className='text-slate-500'
