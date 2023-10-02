@@ -23,6 +23,7 @@ import {
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
+    const [width, setWidth] = useState(window.innerWidth);
     const [listing, setListing] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -56,6 +57,22 @@ export default function Listing() {
     console.log(loading);
 
 
+    // Update the width when the window is resized
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    // Add an event listener to listen for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
     return (
         <main>
             {loading && <p className='text-2xl text-center my-7'>Loading...</p>}
@@ -84,7 +101,7 @@ export default function Listing() {
 
                     <div className='flex items-center justify-center'>
                     <SimpleImageSlider 
-                        width={900}
+                        width={width}
                         height={304}
                         images={listing.imageUrl}
                         showBullets={true}
